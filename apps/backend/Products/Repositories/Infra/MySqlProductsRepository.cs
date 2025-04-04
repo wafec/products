@@ -14,7 +14,7 @@ namespace Products.Repositories.Infra
             {
                 new ProductReportDomainModel
                 {
-                    Id = 1,
+                    Id = "1",
                     Name = "Product A",
                     Entries = 10,
                     Exits = 5,
@@ -22,7 +22,7 @@ namespace Products.Repositories.Infra
                 },
                 new ProductReportDomainModel
                 {
-                    Id = 2,
+                    Id = "2",
                     Name = "Product B",
                     Entries = 20,
                     Exits = 15,

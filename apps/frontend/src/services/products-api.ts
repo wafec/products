@@ -1,13 +1,16 @@
-import { Product, ProductReport } from "../models/product";
+import { ProductUpdateModel, ProductReportModel } from "../models/product";
 
 export class ProductsApi {
-    update(product: Product, actionType: string) {
-        console.log(product, actionType)
+    update(productUpdate: ProductUpdateModel, actionType: string) {
+        console.log(productUpdate, actionType)
     }
 
-    async getReport(): Promise<ProductReport[]> {
-        return [
-            new ProductReport(new Product("1", "Produto 1", 10), 10, 5),
-        ];
+    async getReport(): Promise<ProductReportModel[]> {
+        const response = await fetch("/api/products")
+        const data = await response.json()
+        console.log(data)
+        return data.message.map((p: any) => {
+            return new ProductReportModel(p.id, p.name, p.entries, p.exits, p.balance);
+        })
     }
 }

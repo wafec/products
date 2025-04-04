@@ -1,10 +1,10 @@
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { useEffect, useState } from "react";
 import { productsApi } from "../services/apis";
-import { ProductReport } from "../models/product";
+import { ProductReportModel } from "../models/product";
 
 export default function ProductsReport() {
-    const [productsReport, setProductsReport]: [ProductReport[], any] = useState([])
+    const [productsReport, setProductsReport]: [ProductReportModel[], any] = useState([])
 
     useEffect(() => {
         productsApi.getReport().then((report) => {
@@ -28,9 +28,9 @@ export default function ProductsReport() {
                     <TableBody>
                         {
                             productsReport.map((productReport) => (
-                                <TableRow key={productReport.product.id}>
-                                    <TableCell>{productReport.product.name}</TableCell>
-                                    <TableCell>{productReport.product.id}</TableCell>
+                                <TableRow key={productReport.id}>
+                                    <TableCell>{productReport.name}</TableCell>
+                                    <TableCell>{productReport.id}</TableCell>
                                     <TableCell>{productReport.entries}</TableCell>
                                     <TableCell>{productReport.exits}</TableCell>
                                     <TableCell>{productReport.balance}</TableCell>

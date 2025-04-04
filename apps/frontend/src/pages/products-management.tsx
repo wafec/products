@@ -1,7 +1,7 @@
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, Stack, TextField } from "@mui/material";
 import { useState } from "react";
 import { productsApi } from "../services/apis";
-import { Product } from "../models/product";
+import { ProductUpdateModel } from "../models/product";
 
 export default function ProductsManagement() {
     const [actionType, setActionType] = useState("Compra")
@@ -21,7 +21,7 @@ export default function ProductsManagement() {
     }
 
     const handleUpdate = () => {
-        productsApi.update(new Product(id, "", quantity), actionType)
+        productsApi.update(new ProductUpdateModel(id, "", quantity), actionType)
     }
 
     return (
