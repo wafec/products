@@ -1,34 +1,49 @@
+using Products.Models;
 using Products.Models.ViewModels;
 
 namespace Products.Repositories.Infra 
 {
     public class MySqlProductsRepository : ProductsRepository {
-        public void UpdateProduct(ProductUpdateDomainModel productUpdate)
+        private readonly ProductsDbContext _dbContext;
+
+        public MySqlProductsRepository(ProductsDbContext dbContext)
         {
-            
+            _dbContext = dbContext;
         }
 
-        public List<ProductReportDomainModel> GetReport()
+        public void UpdateProduct(ProductUpdateDomainModel productUpdate)
         {
-            return new List<ProductReportDomainModel>()
+            var existent = _dbContext.Products.FirstOrDefault(p => p.Id == productUpdate.Id);
+            if (existent == null) {
+                existent = new Models.ProductInfraModel 
+                {
+                    Id = productUpdate.Id,
+                    Name = ""
+                };
+                _dbContext.Products.Add(existent);
+            }
+            var update = new ProductUpdateInfraModel
             {
-                new ProductReportDomainModel
-                {
-                    Id = "1",
-                    Name = "Product A",
-                    Entries = 10,
-                    Exits = 5,
-                    Balance = 5
-                },
-                new ProductReportDomainModel
-                {
-                    Id = "2",
-                    Name = "Product B",
-                    Entries = 20,
-                    Exits = 15,
-                    Balance = 5
-                }
+                ActionType = productUpdate.ActionType,
+                Quantity = productUpdate.Quantity,
+                CreatedAt = DateTime.UtcNow,
+                Product = existent
             };
+            _dbContext.ProductUpdates.Add(update);
+            _dbContext.SaveChanges();
+        }
+
+        public List<ProductReportDomainModel> GetReport(DateTime startDate, DateTime endDate)
+        {
+            // TODO: create enums for action types
+            return (from products in _dbContext.Products join updates in _dbContext.ProductUpdates.Where(p => p.CreatedAt >= startDate && p.CreatedAt < endDate) on products.Id equals updates.ProductId into g
+                select new ProductReportDomainModel
+                {
+                    Id = products.Id,
+                    Name = products.Name,
+                    Entries = g.Sum(p => p.ActionType == "Compra" ? p.Quantity : 0),
+                    Exits = g.Sum(p => p.ActionType == "Venda" ? p.Quantity : 0)
+                }).ToList();
         }
     }
 }

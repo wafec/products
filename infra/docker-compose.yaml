@@ -36,6 +36,24 @@ services:
     depends_on:
       - frontend
 
+  database:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: Products
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ../apps/backend/Products/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - database-volume:/var/lib/mysql
+
+volumes:
+  database-volume:
+    driver: local
+
 networks:
   host:
     name: host

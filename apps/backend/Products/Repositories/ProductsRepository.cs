@@ -8,6 +8,6 @@ namespace Products.Repositories
     public interface ProductsRepository
     {
         void UpdateProduct(ProductUpdateDomainModel productUpdate);
-        List<ProductReportDomainModel> GetReport();
+        List<ProductReportDomainModel> GetReport(DateTime startDate, DateTime endDate);
     }
 }

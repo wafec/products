@@ -16,9 +16,9 @@ namespace Products.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetReport()
+        public IActionResult GetReport(DateTime startDate, DateTime endDate)
         {
-            return Ok(new { Message = _repository.GetReport() });
+            return Ok(new { Message = _repository.GetReport(startDate, endDate) });
         }
 
         [HttpPost()]
