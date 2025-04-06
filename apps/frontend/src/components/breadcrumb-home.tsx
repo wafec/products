@@ -1,11 +1,10 @@
-import { Box, Breadcrumbs, Typography } from "@mui/material";
-import { Link } from "react-router";
+import { Box, Breadcrumbs, Link, Typography } from "@mui/material";
 
 export function BreadcrumbHome({current}: {current: string}) {
     return (
         <Box>
             <Breadcrumbs aria-label="breadcrumb">
-                <Link to="/">
+                <Link underline="hover" color="inherit" href="/">
                     Principal
                 </Link>
                 <Typography sx={{ color: 'text.primary' }}>{current}</Typography>

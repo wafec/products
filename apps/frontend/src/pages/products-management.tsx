@@ -34,7 +34,7 @@ export default function ProductsManagement() {
             <Stack spacing={2}>
                 <BreadcrumbHome current="Movimentações" />
                 {confirmation && <Alert severity="success">Cadastrado com sucesso</Alert>}
-                <TextField id="product-id" label="Código" onChange={handleIdChange} />
+                <TextField id="product-id" label="Código" onChange={handleIdChange} slotProps={{htmlInput:{'data-testid': 'product-id'}}} />
                 <FormControl fullWidth>
                     <InputLabel id="product-action-type-label">Tipo</InputLabel>
                     <Select
@@ -42,13 +42,13 @@ export default function ProductsManagement() {
                         id="product-action-type-select"
                         value={actionType}
                         label="Tipo"
-                        onChange={handleActionTypeChange}>
+                        onChange={handleActionTypeChange} inputProps={{ 'data-testid': 'action-type' }}>
                             <MenuItem value={"Compra"}>Compra</MenuItem>
                             <MenuItem value={"Venda"}>Venda</MenuItem>
                     </Select>
                 </FormControl>
-                <TextField id="product-quantity" label="Quantidade" type="number" onChange={handleQuantityChange} />
-                <Button variant="contained" onClick={handleUpdate}>Cadastrar</Button>
+                <TextField id="product-quantity" label="Quantidade" type="number" onChange={handleQuantityChange} slotProps={{htmlInput: {'data-testid': 'quantity'}}} />
+                <Button variant="contained" onClick={handleUpdate} {...{"data-testid": "cadastrar"}}>Cadastrar</Button>
             </Stack>
         </Box>
     )
