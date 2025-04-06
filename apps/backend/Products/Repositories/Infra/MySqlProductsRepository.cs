@@ -1,4 +1,5 @@
 using Products.Models;
+using Products.Models.Domain;
 using Products.Models.ViewModels;
 
 namespace Products.Repositories.Infra 
@@ -18,9 +19,14 @@ namespace Products.Repositories.Infra
                 existent = new Models.ProductInfraModel 
                 {
                     Id = productUpdate.Id,
-                    Name = ""
+                    Name = productUpdate.Name
                 };
                 _dbContext.Products.Add(existent);
+            } else {
+                if (existent.Name != productUpdate.Name)
+                {
+                    existent.Name = productUpdate.Name;
+                }
             }
             var update = new ProductUpdateInfraModel
             {
@@ -43,7 +49,20 @@ namespace Products.Repositories.Infra
                     Name = products.Name,
                     Entries = g.Sum(p => p.ActionType == "Compra" ? p.Quantity : 0),
                     Exits = g.Sum(p => p.ActionType == "Venda" ? p.Quantity : 0)
-                }).ToList();
+                }).Where(p => p.Entries > 0 || p.Exits > 0).ToList();
+        }
+
+        public ProductDomainModel? GetProductById(string id) 
+        {
+            var product = _dbContext.Products.FirstOrDefault(p => p.Id == id);
+            if (product == null)
+                return null;
+            return new ProductDomainModel 
+            {
+                Id = product.Id!,
+                Name = product.Name!,
+                Quantity = _dbContext.ProductUpdates.Where(p => p.ProductId == product.Id).Select(p => p.ActionType == "Compra" ? p.Quantity : -p.Quantity).Sum()
+            };
         }
     }
 }

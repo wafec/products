@@ -27,5 +27,16 @@ namespace Products.Controllers
             _repository.UpdateProduct(productUpdate);
             return Ok();
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetProductById(string id)
+        {
+            var product = _repository.GetProductById(id);
+            if (product == null)
+            {
+            return NotFound();
+            }
+            return Ok(product);
+        }
     }
 }

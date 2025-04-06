@@ -23,10 +23,10 @@ describe("ProductsManagement", () => {
     it("renders the form elements correctly", () => {
         render(<ProductsManagement />);
 
-        expect(screen.getByLabelText("Código")).toBeInTheDocument();
-        expect(screen.getByLabelText("Tipo")).toBeInTheDocument();
-        expect(screen.getByLabelText("Quantidade")).toBeInTheDocument();
-        expect(screen.getByText("Cadastrar")).toBeInTheDocument();
+        expect(screen.getByTestId("product-id")).toBeInTheDocument();
+        expect(screen.getByTestId("action-type")).toBeInTheDocument();
+        expect(screen.getByTestId("quantity")).toBeInTheDocument();
+        expect(screen.getByTestId("cadastrar")).toBeInTheDocument();
     });
 
     it("updates state when inputs change", () => {

@@ -29,3 +29,12 @@ export class ProductReportModel extends ProductBase {
         this.balance = balance;
     }
 }
+
+export class ProductDetailsModel extends ProductBase {
+    quantity: number;
+
+    constructor(id: string, name: string, quantity: number) {
+        super(id, name);
+        this.quantity = quantity;
+    }
+}

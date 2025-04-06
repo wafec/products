@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Products.Models;
+using Products.Models.Domain;
 using Products.Models.ViewModels;
 
 namespace Products.Repositories
@@ -9,5 +10,6 @@ namespace Products.Repositories
     {
         void UpdateProduct(ProductUpdateDomainModel productUpdate);
         List<ProductReportDomainModel> GetReport(DateTime startDate, DateTime endDate);
+        ProductDomainModel? GetProductById(string id);
     }
 }
