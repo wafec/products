@@ -4,10 +4,21 @@ import { productsApi } from "../services/apis";
 import { ProductReportModel } from "../models/product";
 import { BreadcrumbHome } from "../components/breadcrumb-home";
 
+function dateToString(thisDate: Date): string {
+    var dd = String(thisDate.getDate()).padStart(2, '0');
+    var mm = String(thisDate.getMonth() + 1).padStart(2, '0');
+    var yyyy = thisDate.getFullYear();
+    
+    return yyyy + '-' + mm + '-' + dd; 
+}
+
 export default function ProductsReport() {
+    const startDateObj = new Date();
+    startDateObj.setDate(startDateObj.getDate() - (365 * 2));
+
     const [productsReport, setProductsReport]: [ProductReportModel[], any] = useState([])
-    const [startDate, setStartDate] = useState("2025-01-01")
-    const [endDate, setEndDate] = useState("2025-12-31")
+    const [startDate, setStartDate] = useState(dateToString(startDateObj))
+    const [endDate, setEndDate] = useState(dateToString(new Date()))
 
     useEffect(() => {
         productsApi.getReport(startDate, endDate).then((report) => {
