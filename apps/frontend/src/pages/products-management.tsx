@@ -79,7 +79,7 @@ export default function ProductsManagement() {
                 {confirmation && <Alert severity="success">Cadastrado com sucesso</Alert>}
                 {quantityError && <Alert severity="error">Quantidade precisa ser positiva</Alert>}
                 <TextField required id="product-id" label="Código" value={id} onChange={handleIdChange} slotProps={{htmlInput:{'data-testid': 'product-id'}}} onBlur={handleIdOnBlur} />
-                <TextField id="product-name" label="Nome" value={name ?? ""} onChange={handleNameChange} />
+                <TextField id="product-name" label="Nome" value={name ?? ""} onChange={handleNameChange} slotProps={{htmlInput: {'data-testid': 'name'}}} />
                 <FormControl fullWidth>
                     <InputLabel id="product-action-type-label">Tipo</InputLabel>
                     <Select

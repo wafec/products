@@ -56,11 +56,13 @@ describe("ProductsManagement", () => {
         const quantityInput = screen.getByTestId("quantity");
         const typeSelect = screen.getByTestId("action-type");
         const submitButton = screen.getByTestId("cadastrar");
+        const nameInput = screen.getByTestId("name");
         
 
         fireEvent.change(codeInput, { target: { value: "123" } });
         fireEvent.change(quantityInput, { target: { value: "10" } });
         fireEvent.change(typeSelect, { target: { value: "Compra" } });
+        fireEvent.change(nameInput, { target: { value: "Test" } });
         await act(async () => {
             fireEvent.click(submitButton);
         })
