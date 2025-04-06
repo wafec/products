@@ -23,3 +23,23 @@ cd infra
 docker-compose down --volume
 docker-compose up
 ```
+
+## Running Frontend tests
+
+```
+cd ./apps/frontend
+npm test
+```
+
+Press the `a` key to run all tests.
+
+## Running backend tests
+
+```
+cd ./apps/backend/Products.Tests
+dotnet test
+```
+
+## Future Work
+
+- Implement all the TODOs
